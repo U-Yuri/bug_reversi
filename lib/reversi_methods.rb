@@ -9,8 +9,8 @@ BLANK_CELL = 0
 
 # チェスボードを参考として、マスを 'a8', 'd6' と書いて表現する。
 # 変数名cellstrとして取り扱う。
-ROW = %w[a b c d e f g h].freeze
-COL = %w[8 7 6 5 4 3 2 1].freeze
+COL = %w[a b c d e f g h].freeze
+ROW = %w[8 7 6 5 4 3 2 1].freeze
 
 DIRECTIONS = [
   DIRECTION_TOP_LEFT      = :top_left,
@@ -47,6 +47,7 @@ def copy_board(to_board, from_board)
 end
 
 def put_stone!(board, cellstr, stone_color, execute = true) # rubocop:disable Style/OptionalBooleanParameter
+  # debugger
   pos = Position.new(cellstr:)
   raise '無効なポジションです' if pos.invalid?
   raise 'すでに石が置かれています' unless pos.stone_color(board) == BLANK_CELL
@@ -69,7 +70,7 @@ end
 # target_posはひっくり返す対象セル
 def turn!(board, target_pos, attack_stone_color, direction)
   return false if target_pos.out_of_board?
-  return false if target_pos.stone_color(board) == attack_stone_color
+  return false if (target_pos.stone_color(board) == BLANK_CELL) || (target_pos.stone_color(board) == attack_stone_color)
 
   next_pos = target_pos.next_position(direction)
   if (next_pos.stone_color(board) == attack_stone_color) || turn!(board, next_pos, attack_stone_color, direction)
