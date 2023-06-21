@@ -30,7 +30,7 @@ class Position
   def to_cellstr
     return '盤面外' if out_of_board?
 
-    "#{ROW[row]}#{COL[col]}"
+    "#{COL[col]}#{ROW[row]}"
   end
 
   def next_position(direction)
