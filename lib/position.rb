@@ -5,8 +5,8 @@ class Position
 
   def initialize(cellstr: nil, row: nil, col: nil)
     if cellstr
-      @row = ROW.index(cellstr[0])
-      @col = COL.index(cellstr[1])
+      @row = ROW.index(cellstr[1])
+      @col = COL.index(cellstr[0])
     else
       @row = row
       @col = col
@@ -24,24 +24,24 @@ class Position
   def stone_color(board)
     return nil if out_of_board?
 
-    board[col][row]
+    board[row][col]
   end
 
   def to_cellstr
     return '盤面外' if out_of_board?
 
-    "#{ROW[row]}#{COL[col]}"
+    "#{COL[col]}#{ROW[row]}"
   end
 
   def next_position(direction)
     case direction
     when DIRECTION_TOP_LEFT     then Position.new(row: row - 1, col: col - 1)
-    when DIRECTION_TOP          then Position.new(row:, col: col - 1)
-    when DIRECTION_TOP_RIGHT    then Position.new(row: row + 1, col: col - 1)
-    when DIRECTION_LEFT         then Position.new(row: row - 1, col:)
-    when DIRECTION_RIGHT        then Position.new(row: row + 1, col:)
-    when DIRECTION_BOTTOM_LEFT  then Position.new(row: row - 1, col: col + 1)
-    when DIRECTION_BOTTOM       then Position.new(row:, col: col + 1)
+    when DIRECTION_TOP          then Position.new(row: row - 1, col:)
+    when DIRECTION_TOP_RIGHT    then Position.new(row: row - 1, col: col + 1)
+    when DIRECTION_LEFT         then Position.new(row:, col: col - 1)
+    when DIRECTION_RIGHT        then Position.new(row:, col: col + 1)
+    when DIRECTION_BOTTOM_LEFT  then Position.new(row: row + 1, col: col - 1)
+    when DIRECTION_BOTTOM       then Position.new(row: row + 1, col:)
     when DIRECTION_BOTTOM_RIGHT then Position.new(row: row + 1, col: col + 1)
     else raise 'Unknown direction'
     end
