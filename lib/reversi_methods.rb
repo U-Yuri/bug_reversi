@@ -86,8 +86,8 @@ def finished?(board)
 end
 
 def placeable?(board, attack_stone_color)
-  board.each.with_index do |cols, col|
-    cols.each.with_index do |cell, row|
+  board.each.with_index do |cells, row|
+    cells.each.with_index do |cell, col|
       next unless cell == BLANK_CELL # 空セルでなければ判定skip
 
       position = Position.new(row:, col:)
